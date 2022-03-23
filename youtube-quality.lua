@@ -124,10 +124,13 @@ function show_menu()
         local ass = assdraw.ass_new()
 
         ass:pos(opts.text_padding_x, opts.text_padding_y)
-        ass:append(opts.style_ass_tags)
+        --ass:append(opts.style_ass_tags)
 
         for i,v in ipairs(options) do
-            ass:append(choose_prefix(i)..v.label.."\\N")
+            -- If statement to only show previous 5 and next 5 options, in case there are too many to fit on-screen
+            if (i > selected - 5 and i < selected + 5) then
+                ass:append(choose_prefix(i)..v.label.."\\N")
+            end
         end
 
 		local w, h = mp.get_osd_size()
